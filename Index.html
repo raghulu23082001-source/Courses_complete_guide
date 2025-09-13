@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Credit Progress Tracker</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #eef2f7;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    header {
+      background: linear-gradient(90deg, #2c3e50, #3498db);
+      color: white;
+      padding: 25px;
+      text-align: center;
+      font-size: 1.4em;
+      letter-spacing: 1px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 20px auto;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin-bottom: 25px;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    h2 {
+      color: #2c3e50;
+      margin-bottom: 10px;
+      border-left: 5px solid #3498db;
+      padding-left: 10px;
+    }
+
+    .progress-circle {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: conic-gradient(#2ecc71 0% 0%, #ddd 0% 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2em;
+      font-weight: bold;
+      margin: 0 auto 15px;
+      position: relative;
+    }
+
+    .progress-circle span {
+      position: absolute;
+      text-align: center;
+    }
+
+    .progress-bar {
+      background: #ddd;
+      border-radius: 20px;
+      overflow: hidden;
+      height: 18px;
+      margin: 12px 0;
+    }
+
+    .progress {
+      background: linear-gradient(90deg, #3498db, #2ecc71);
+      height: 100%;
+      width: 0%;
+      transition: width 1.5s ease;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: left;
+    }
+
+    th {
+      background: #3498db;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background: #f9f9f9;
+    }
+
+    .pending { color: #e74c3c; font-weight: bold; }
+    .completed { color: #27ae60; font-weight: bold; }
+    .choice { color: #f39c12; font-weight: bold; cursor: pointer; }
+
+    .choice-list {
+      display: none;
+      margin-top: 10px;
+      padding-left: 25px;
+      list-style-type: circle;
+    }
+
+    .choice-list li {
+      padding: 6px 0;
+      transition: transform 0.2s ease;
+    }
+
+    .choice-list li:hover {
+      transform: scale(1.05);
+      color: #2980b9;
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      background: #2c3e50;
+      color: white;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>📊 Curriculum Credit Progress Tracker</h1>
+  </header>
+
+  <div class="container">
+
+    <!-- Overall Progress -->
+    <div class="card">
+      <h2>Overall Progress</h2>
+      <div class="progress-circle" id="circle-progress">
+        <span>0%</span>
+      </div>
+      <p style="text-align:center;"><b>182 / 221 credits completed</b></p>
+      <div class="progress-bar">
+        <div class="progress" id="overall-progress"></div>
+      </div>
+    </div>
+
+    <!-- Core Summary -->
+    <div class="card">
+      <h2>Credit Distribution</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Earned</th>
+            <th>Pending</th>
+            <th>Remarks</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Programme Core</td>
+            <td>76</td>
+            <td>69</td>
+            <td class="pending">7</td>
+            <td>ISS (Theory+Project, 4) + CAO Theory Only (3)</td>
+          </tr>
+          <tr>
+            <td>Programme Electives</td>
+            <td>72</td>
+            <td>51</td>
+            <td class="pending">21</td>
+            <td>Cloud, Adv. Testing, Parallel Prog, Reverse Engg, KMS + 1 Choice</td>
+          </tr>
+          <tr>
+            <td>University Core</td>
+            <td>61</td>
+            <td>41</td>
+            <td class="pending">20</td>
+            <td>Capstone Project (18) + Soft Skills (2)</td>
+          </tr>
+          <tr>
+            <td>University Elective</td>
+            <td>12</td>
+            <td>17</td>
+            <td class="completed">Completed (+5)</td>
+            <td>Extra credits earned</td>
+          </tr>
+          <tr>
+            <td>Bridge Course</td>
+            <td>4</td>
+            <td>4</td>
+            <td class="completed">Completed</td>
+            <td>Done ✅</td>
+          </tr>
+          <tr>
+            <td>Non Credit Course</td>
+            <td>5</td>
+            <td>2</td>
+            <td class="pending">3</td>
+            <td>EVS Course</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Programme Electives -->
+    <div class="card">
+      <h2>Programme Elective Pending Courses (21 Credits)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Course Title</th>
+            <th>Type</th>
+            <th>Credits</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Cloud Computing</td><td>Theory + Project</td><td>3</td><td class="pending">Pending</td></tr>
+          <tr><td>Advanced Software Testing</td><td>Theory + Project</td><td>4</td><td class="pending">Pending</td></tr>
+          <tr><td>Parallel Programming</td><td>Theory + Project + Lab</td><td>4</td><td class="pending">Pending</td></tr>
+          <tr><td>Reverse Engineering</td><td>Theory</td><td>3</td><td class="pending">Pending</td></tr>
+          <tr><td>Knowledge Management System</td><td>Theory + Project</td><td>3</td><td class="pending">Pending</td></tr>
+          <tr>
+            <td colspan="4" class="choice" onclick="toggleChoices()">⬇ Click to View Choice Courses (Pick One, 4 Credits)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Choice List -->
+      <ul class="choice-list" id="choice-list">
+        <li>Information Security & Analysis (Theory + Project + Lab)</li>
+        <li>Data Mining Techniques (Theory + Project)</li>
+        <li>Android Programming (Theory + Project)</li>
+        <li>Software Computing (Theory + Project)</li>
+        <li>Web Technologies (Theory + Lab)</li>
+        <li>Advanced Java Programming</li>
+      </ul>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 Credit Progress Tracker | Enhanced Animated UI
+  </footer>
+
+  <script>
+    // Animate progress bar & circle
+    window.onload = () => {
+      let percent = Math.round((182 / 221) * 100);
+
+      // Progress bar animation
+      document.getElementById("overall-progress").style.width = percent + "%";
+
+      // Circle animation
+      let circle = document.getElementById("circle-progress");
+      let span = circle.querySelector("span");
+      let start = 0;
+      let interval = setInterval(() => {
+        if (start <= percent) {
+          span.textContent = start + "%";
+          circle.style.background = `conic-gradient(#2ecc71 ${start}%, #ddd ${start}% 100%)`;
+          start++;
+        } else {
+          clearInterval(interval);
+        }
+      }, 20);
+    };
+
+    // Toggle elective choice list
+    function toggleChoices() {
+      const list = document.getElementById("choice-list");
+      list.style.display = list.style.display === "block" ? "none" : "block";
+    }
+  </script>
+</body>
+  </html>
